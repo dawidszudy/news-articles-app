@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Article</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div id="menu">
+    <a th:href="@{/index}" class="menu-item">Main Page</a>
+    <a th:href="@{/articlesList}" class="menu-item">Articles list</a>
+
+    <div style="clear: both;"></div>
+</div>
+<div id="form-container">
+    <h1>Add new article</h1>
+    <form method="post" th:action="@{/saveArticle}" th:object="${article}">
+        <input type="hidden" th:field="*{id}">
+        <input type="date" th:field="*{dateArticle}">
+
+        <input type="text" placeholder="title of article" th:field="*{title}">
+        <input type="text" placeholder="magazine name" th:field="*{magazineName}">
+        <input type="text" placeholder="author First Name" th:field="*{authorFirstName}">
+        <input type="text" placeholder="author Last Name" th:field="*{authorLastName}">
+        <textarea rows="4" placeholder="content" th:field="*{content}"></textarea>
+
+        <input type="submit" value="Save">
+
+    </form>
+</div>
+
+</body>
+</html>

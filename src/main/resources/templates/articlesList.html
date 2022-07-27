@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles List</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<div id="menu">
+    <a th:href="@{/index}" class="menu-item">Main Page</a>
+    <a th:href="@{/saveArticle}" class="menu-item">Add new article</a>
+
+    <div style="clear: both;"></div>
+</div>
+<div id="wrapper">
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author first name</th>
+            <th>Author last name</th>
+            <th>Magazine name</th>
+            <th>Content</th>
+            <th>Article date</th>
+            <th>Date of save</th>
+            <th>Edit</th>
+            <th>Remove</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.id}">date</td>
+            <td th:text="${article.title}">Title</td>
+            <td th:text="${article.authorFirstName}">Author name</td>
+            <td th:text="${article.authorLastName}">Author surname</td>
+            <td th:text="${article.magazineName}">Magazine name speed</td>
+            <td th:text="${article.content}">Content</td>
+            <td th:text="${article.dateArticle}">Date article</td>
+            <td th:text="${article.dateOfSave}">Date of Save</td>
+            <td><a th:href="@{/articles/{articleId}/edit(articleId=${article.id})}">Edit</a></td>
+            <td><a th:href="@{/articles/{articleId}/delete(articleId=${article.id})}">Remove</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="clear: both;"></div>
+
+</body>
+</html>
