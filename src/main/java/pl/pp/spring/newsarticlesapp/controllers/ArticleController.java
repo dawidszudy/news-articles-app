@@ -33,7 +33,7 @@ public class ArticleController {
     }
 
     @PostMapping("/saveArticle")
-    public String saveTraining(@ModelAttribute Article article) {
+    public String saveArticle(@ModelAttribute Article article) {
         articleService.save(article);
         return "redirect:/articlesList";
     }
