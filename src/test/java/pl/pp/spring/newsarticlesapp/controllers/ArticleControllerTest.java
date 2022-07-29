@@ -11,8 +11,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.pp.spring.newsarticlesapp.model.Article;
 import pl.pp.spring.newsarticlesapp.services.ArticleService;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +41,12 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void showAddForm() {
+    void showAddForm() throws Exception {
+        mockMvc.perform(get("/articles/save"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("articles/save"));
+
+        verify(articleService).findAll();
     }
 
     @Test
@@ -69,11 +72,15 @@ public class ArticleControllerTest {
 
         when(articleService.findAll()).thenReturn(listArticles);
 
-        mockMvc.perform(get("/articles"))
+        mockMvc.perform(get("/articlesList"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("articlesList"))
+                .andExpect(view().name("articles/list"))
                 .andExpect(model().attribute("articles", hasSize(2)));
 
         verify(articleService).findAll();
+    }
+
+    @Test
+    void showArticleForId() {
     }
 }

@@ -6,6 +6,7 @@ import pl.pp.spring.newsarticlesapp.repositories.ArticleRepository;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class ArticleDbService implements ArticleService{
     public List<Article> findAll() {
         List<Article> articles = new ArrayList<>();
         articleRepository.findAll().forEach(articles::add);
+        Collections.sort(articles, (a, b)->b.getDateArticle().compareTo(a.getDateArticle()));
         return articles;
     }
 
@@ -37,20 +39,11 @@ public class ArticleDbService implements ArticleService{
 
     @Override
     public void deleteById(Long id) {
-        //Article article = articleRepository.findById(id).orElse(null);
         articleRepository.deleteById(id);
     }
 
     @Override
     public Object findByWord(String word) {
-//        //szukanie joków dla kategorii i usuwanie relacji między tymi jokami a kategorią
-//        Article article = articleRepository.findById(word).orElse(null);
-//
-//        article.getContent().forEach(joke -> {
-//            joke.getCategories().remove(category);
-//        });
-//
-//        return categoryRepository.deleteById(id);
         return null;
     }
 }

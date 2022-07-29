@@ -14,7 +14,7 @@
 </div>
 <div id="form-container">
     <h1>Add new article</h1>
-    <form method="post" th:action="@{/saveArticle}" th:object="${article}">
+    <form method="post" th:action="@{/articles/save}" th:object="${article}">
         <input type="hidden" th:field="*{id}">
         <input type="date" th:field="*{dateArticle}">
 
