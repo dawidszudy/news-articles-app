@@ -6,6 +6,7 @@ The small app, which allows user to save articles.
 ## Technologies Used
 - Java
 - Spring
+- JUnit
 - Hibernate
 - H2
 - HTML

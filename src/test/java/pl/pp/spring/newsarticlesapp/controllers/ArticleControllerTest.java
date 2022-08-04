@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,6 +35,7 @@ public class ArticleControllerTest {
     private MockMvc mockMvc;
 
     private Article article = new Article();
+    private Long id = Long.valueOf(2);
 
     @BeforeEach
     void setUp() {
@@ -42,23 +46,39 @@ public class ArticleControllerTest {
 
     @Test
     void showAddForm() throws Exception {
-        mockMvc.perform(get("/articles/save"))
+        mockMvc.perform(get("/saveArticle"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("articles/save"));
-
-        verify(articleService).findAll();
     }
 
     @Test
-    void showEditCategoryForm() {
+    void showEditCategoryForm() throws Exception {
+        when(articleService.findById(anyLong())).thenReturn(id);
+
+        mockMvc.perform(get("/articles/2/edit"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("article"))
+                .andExpect(view().name("articles/save"));
+
+        verify(articleService).findById(2L);
     }
 
     @Test
-    void saveTraining() {
+    void saveTraining() throws Exception {
+        mockMvc.perform(post("/articles/save"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/articlesList"));
+
+        verify(articleService).save(any(Article.class));
     }
 
     @Test
-    void deleteTraining() {
+    void deleteExistTraining() throws Exception {
+        mockMvc.perform(get("/articles/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/articlesList"));
+
+        verify(articleService).deleteById(1L);
     }
 
     @Test
@@ -78,9 +98,5 @@ public class ArticleControllerTest {
                 .andExpect(model().attribute("articles", hasSize(2)));
 
         verify(articleService).findAll();
-    }
-
-    @Test
-    void showArticleForId() {
     }
 }
