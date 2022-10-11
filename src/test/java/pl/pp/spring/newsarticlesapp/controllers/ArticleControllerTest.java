@@ -35,7 +35,6 @@ public class ArticleControllerTest {
     private MockMvc mockMvc;
 
     private Article article = new Article();
-    private Long id = Long.valueOf(2);
 
     @BeforeEach
     void setUp() {
@@ -45,15 +44,15 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void showAddForm() throws Exception {
+    void showAddArticleForm() throws Exception {
         mockMvc.perform(get("/saveArticle"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("articles/save"));
     }
 
     @Test
-    void showEditCategoryForm() throws Exception {
-        when(articleService.findById(anyLong())).thenReturn(id);
+    void showEditArticleForm() throws Exception {
+        when(articleService.findById(anyLong())).thenReturn(article);
 
         mockMvc.perform(get("/articles/2/edit"))
                 .andExpect(status().isOk())
@@ -64,7 +63,7 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void saveTraining() throws Exception {
+    void saveArticle() throws Exception {
         mockMvc.perform(post("/articles/save"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articlesList"));
@@ -73,7 +72,7 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void deleteExistTraining() throws Exception {
+    void deleteExistArticle() throws Exception {
         mockMvc.perform(get("/articles/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articlesList"));
@@ -82,7 +81,7 @@ public class ArticleControllerTest {
     }
 
     @Test
-    void showList() throws Exception {
+    void showListArticles() throws Exception {
         List<Article> listArticles = new ArrayList<>();
         Article article1 = new Article();
         Article article2 = new Article();

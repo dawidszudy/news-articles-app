@@ -43,7 +43,7 @@ public class ArticleDbService implements ArticleService{
     }
 
     @Override
-    public Object findByWord(String word) {
+    public Article findByWord(String word) {
         return null;
     }
 }

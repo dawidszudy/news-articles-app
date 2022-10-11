@@ -4,15 +4,15 @@ import pl.pp.spring.newsarticlesapp.model.Article;
 
 import java.util.List;
 
-public interface ArticleService<E> {
+public interface ArticleService {
 
-    List<E> findAll();
+    List<Article> findAll();
 
-    E findById(Long id);
+    Article findById(Long id);
 
     Article save(Article article);
 
     void deleteById(Long Id);
 
-    E findByWord(String word);
+    Article findByWord(String word);
 }

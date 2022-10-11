@@ -27,7 +27,7 @@ public class ArticleController {
 
     @GetMapping("/articles/{articleId}/edit")
     public String showEditArticleForm(@PathVariable Long articleId, Model model) {
-        Article article = (Article) articleService.findById(articleId);
+        Article article = articleService.findById(articleId);
         model.addAttribute("article", article);
         return "articles/save";
     }
